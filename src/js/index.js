@@ -12,24 +12,25 @@ class DatePicker {
     'October',
     'November',
     'December',
-  ]
-  #calendarDate = {
+  ];
+
+  #calendarDate = { //달력에 보이는 날짜들 정보
     data: '', //json에 있는 new Date() 객체를 사용할 때 씀
     date: 0,
     month: 0,
     year: 0,
   };
-  selectedDate = {
+  selectedDate = { //선택된 날짜 정보
     data: '', //json에 있는 new Date() 객체를 사용할 때 씀
     date: 0,
     month: 0,
     year: 0,
   };
 
-  datePickerEl = document.getElementById('date-picker');
-  dateInputEl = this.datePickerEl.querySelector('#date-input');
-  calendarEl = this.datePickerEl.querySelector('#calendar');
-  calendarMonthEl = this.calendarEl.querySelector('#month');
+  datePickerEl = document.getElementById('date-picker'); //달력 전체 (날짜타이틀 + 달력)를 감싸는 아이디 불러오기
+  dateInputEl = this.datePickerEl.querySelector('#date-input'); //달력 날짜 타이틀 보여주는 아이디 불러오기
+  calendarEl = this.datePickerEl.querySelector('#calendar'); //달력을 보여주는 아이디 불러오기
+  calendarMonthEl = this.calendarEl.querySelector('#month'); //
   monthContentEl = this.calendarEl.querySelector('#content');
   nextBtnEl = this.calendarEl.querySelector('#next');
   prevBtnEl = this.calendarEl.querySelector('#prev');
@@ -43,21 +44,22 @@ class DatePicker {
     this.setDateInput();
     this.addEvent();
   }
+
   initSelectedDate() {
     this.selectedDate = {
       ...this.#calendarDate
     };
   }
   setDateInput() {
-    this.dateInputEl.textcontent = this.formatDate(this.selectedDate.data);
+    this.dateInputEl.textContent = this.formatDate(this.selectedDate.data);
     this.dateInputEl.dataset.value = this.selectedDate.data;
   }
   initCalendarDate() {
     //기존에 있던 달력내용 리셋
-    const data = new Date();
-    const date = data.getDate();
-    const month = data.getMonth();
-    const year = data.getFullYear();
+    const data = new Date(); // ()안에 매개변수를 제공하지 않으면, 생성 순간의 날짜와 시간을 나타내는 date객체를 생성한다
+    const date = data.getDate(); // date는 1부터 시작한다 ( ~ 31까지 )
+    const month = data.getMonth(); //month는 0부터 시작한다 ( ~ 11까지 )
+    const year = data.getFullYear(); // 현지 시간의 년도를 나타낸다 ( 1000 ~ 9999 )
     this.#calendarDate = {
       data,
       date,
@@ -121,7 +123,7 @@ class DatePicker {
   }
   moveToPrevMonth() {
     this.#calendarDate.month--;
-    if (this.#calendarDate.month < 1) {
+    if (this.#calendarDate.month < 0) {
       this.#calendarDate.month = 11;
       this.#calendarDate.year--;
     }
@@ -153,7 +155,7 @@ class DatePicker {
       fragment.appendChild(dateEl);
     }
     fragment.firstChild.style.gridColumnStart = new Date(this.#calendarDate.year, this.#calendarDate.month, 1).getDay() + 1;
-    this.calendarDatesEl.append(fragment);
+    this.calendarDatesEl.appendChild(fragment);
     this.colorSaturday();
     this.colorSunday();
     this.markToday();

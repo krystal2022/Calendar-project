@@ -1,7 +1,6 @@
 {
   "name": "date-picker",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "snowpack dev",
@@ -19,5 +18,14 @@
   },
   "dependencies": {
     "prettier": "2.6.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krystal2022/Calendar-project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/krystal2022/Calendar-project/issues"
+  },
+  "homepage": "https://github.com/krystal2022/Calendar-project#readme",
+  "description": ""
 }
